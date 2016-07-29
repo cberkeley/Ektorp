@@ -112,6 +112,7 @@ public class ViewQuery {
 	private boolean inclusiveEnd = true;
 	private boolean ignoreNotFound = false;
 	private boolean updateSeq = false;
+	private boolean attachments = false;
 
 	private boolean cacheOk = false;
 
@@ -190,6 +191,10 @@ public class ViewQuery {
     public boolean isUpdateSeq() {
         return updateSeq;
     }
+
+	public boolean isAttachments() {
+		return attachments;
+	}
 
     public ViewQuery dbPath(String s) {
 		reset();
@@ -500,6 +505,13 @@ public class ViewQuery {
 		endDocId = s;
 		return this;
 	}
+
+	public ViewQuery attachments(boolean a) {
+		reset();
+		attachments = a;
+		return this;
+	}
+
 	/**
 	 * limit=0 you don't get any data, but all meta-data for this View. The number of documents in this View for example.
 	 * @param i the limit
@@ -721,6 +733,11 @@ public class ViewQuery {
 		if(updateSeq) {
 			query.param("update_seq", "true");
 		}
+
+		if (attachments) {
+			query.param("attachments", "true");
+		}
+
 		return query;
 	}
 

@@ -46,6 +46,11 @@ public class PageRequest {
 				pagedQuery.descending(!pagedQuery.isDescending());
 			}
 		}
+
+		if (q.isAttachments()) {
+			pagedQuery.attachments(true);
+		}
+
 		int additionalRowsToQuery = 1;
 		pagedQuery.limit(pr.getPageSize() + additionalRowsToQuery);
 		return pagedQuery;
@@ -146,12 +151,7 @@ public class PageRequest {
 	public String getStartKeyDocId() {
 		return nextKey != null ? nextKey.docId : null;
 	}
-	/**
-	 * 
-	 * @param startKey
-	 * @param startDocId
-	 * @return
-	 */
+
 	public PageRequest getPreviousPageRequest() {
 		return new Builder(this)
 					.page(this.page-1)
